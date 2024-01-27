@@ -1,12 +1,12 @@
 // WelcomeScreen.js
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
+import Onboarding from '../components/Onboarding';
 
 const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the App!</Text>
-      <Button title="Lets go!" onPress={() => navigation.navigate('Auth')} />
+      <Onboarding/>
     </View>
   );
 };
@@ -16,10 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
   },
 });
 

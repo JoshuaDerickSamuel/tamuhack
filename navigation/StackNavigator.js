@@ -8,6 +8,8 @@ import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import PreferenceScreen from '../screens/AddPref'
+import SkillScreen from '../screens/AddSkill'
 
 const Stack = createNativeStackNavigator();
 
@@ -22,8 +24,8 @@ const screenOptionStyle = {
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }}/>
+      <Stack.Screen name="About" component={About} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };
@@ -31,10 +33,10 @@ const MainStackNavigator = () => {
 const AuthStackNavigator = () => {
     return (
       <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
     );
 };
@@ -42,9 +44,18 @@ const AuthStackNavigator = () => {
 const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Contact" component={Contact} />
+      <Stack.Screen name="Contact" component={Contact} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator };
+const PrefrencesStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Prefrences" component={PreferenceScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="Skills" component={SkillScreen} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  );
+};
+
+export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator };
