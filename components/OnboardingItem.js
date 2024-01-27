@@ -6,7 +6,7 @@ const OnboardingItem = ({item}) => {
 
   return (
     <View style={[styles.container, { width}]}>
-      <Image source={item.image} style={[styles.image,{width, resizeMode: 'contain'}]}/>
+      <Image source={item.image} style={[styles.image,{width, resizeMode: 'center'}]}/>
       <View style={{ flex: 0.3}}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
@@ -22,10 +22,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red'
     },
     image:{
-        flex:0.7,
+        flex:1.3,
         justifyContent: 'center'
     },
     title:{
