@@ -2,15 +2,15 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, push } from 'firebase/database';
+import { getDatabase, ref, push, set } from 'firebase/database';
 
 import firebase from '../firebaseConfig';
-
 
 const SignUpScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [uid, setUid] = useState('');
 
   const handleSignUp = () => {
     const auth = getAuth();
@@ -19,10 +19,11 @@ const SignUpScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setUid(user.uid); // Store the user's UID
 
         // Push user data to Firebase Realtime Database
-        const userRef = ref(db, 'users'); // 'users' is the path in the database
-        push(userRef, {
+        const userRef = ref(db, `users/${user.uid}`); // 'users' is the path in the database
+        set(userRef, {
           username,
           email,
         });
@@ -34,8 +35,6 @@ const SignUpScreen = ({ navigation }) => {
         const errorMessage = error.message;
         Alert.alert('Signup Failed', errorMessage);
       });
-
-    console.log('SignUp details:', username, email, password);
   };
 
   return (
