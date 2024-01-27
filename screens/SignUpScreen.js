@@ -1,7 +1,10 @@
 // SignUpScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, push } from 'firebase/database';
+
+import firebase from '../firebaseConfig';
 
 
 const SignUpScreen = ({ navigation }) => {
@@ -11,20 +14,26 @@ const SignUpScreen = ({ navigation }) => {
 
   const handleSignUp = () => {
     const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    navigation.navigate('Main');
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    Alert.alert("Signup Failed", errorMessage);
+    const db = getDatabase();
 
-    // ..
-  });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        // Push user data to Firebase Realtime Database
+        const userRef = ref(db, 'users'); // 'users' is the path in the database
+        push(userRef, {
+          username,
+          email,
+        });
+
+        navigation.navigate('Main');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Alert.alert('Signup Failed', errorMessage);
+      });
 
     console.log('SignUp details:', username, email, password);
   };
