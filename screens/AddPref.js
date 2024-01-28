@@ -83,20 +83,7 @@ const Header = () => {
     )
 }
 
-const friendsArray = [
-    {
-        name: "John",
-        age: 19,
-    },
-    {
-        name: "Candy",
-        age: 18,
-    },
-    {
-        name: "mandy",
-        age: 20,
-    },
-];
+const friendsArray = [];
 
 const SideScroller = ({nav}) => {
 
@@ -141,9 +128,10 @@ const SideScroller = ({nav}) => {
                 horizontal = {true}
                 pagingEnabled
             />
+            <Button title="Next" onPress={() => nav.navigate('Skills')} />
             </ScrollView>
         </SafeAreaView>
-        <Button title="Go to Home" onPress={() => nav.navigate('Skills')} />
+        
         </View>
 
     )

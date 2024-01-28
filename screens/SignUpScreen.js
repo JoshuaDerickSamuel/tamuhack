@@ -38,7 +38,7 @@ const SignUpScreen = ({ navigation }) => {
           1: 'null',
         });
 
-        navigation.navigate('Main');
+        navigation.navigate('Pref');
       })
       .catch((error) => {
         const errorCode = error.code;
