@@ -14,7 +14,7 @@ const SignInScreen = ({ navigation }) => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        navigation.navigate('Pref');
+        navigation.navigate('Main');
       })
       .catch((error) => {
         const errorCode = error.code;

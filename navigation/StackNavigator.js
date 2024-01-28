@@ -69,4 +69,12 @@ const ProfileStackNavigator = () => {
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator, ProfileStackNavigator};
+const ExternalProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="ExternalProfilePage" component={ExternalProfilePage} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  );
+};
+
+export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator, ProfileStackNavigator, ExternalProfileStackNavigator};
