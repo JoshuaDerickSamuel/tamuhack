@@ -10,6 +10,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import PreferenceScreen from '../screens/AddPref'
 import SkillScreen from '../screens/AddSkill'
+import ProfileScreen from '../screens/ProfilePage'
 
 const Stack = createNativeStackNavigator();
 
@@ -58,4 +59,12 @@ const PrefrencesStackNavigator = () => {
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator };
+const ProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  );
+};
+
+export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator, ProfileStackNavigator};
