@@ -1,6 +1,6 @@
 // SignInScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image, Alert } from 'react-native';
 import firebase from '../firebaseConfig'; // Make sure the path to your firebaseConfig is correct
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -11,23 +11,25 @@ const SignInScreen = ({ navigation }) => {
   const handleSignIn = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+      .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
         navigation.navigate('Pref');
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         Alert.alert("Login Failed", errorMessage);
-  });
-
+      });
   };
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../assets/logo.png')} // Path to your logo image
+        style={styles.logo}
+      />
       <Text style={styles.header}>Login here</Text>
-      <Text style={styles.subHeader}>Welcome back you've been missed!</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -103,6 +105,11 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 16,
   },
+  logo: {
+    width: 100, // Set the width as needed
+    height: 100, // Set the height as needed
+    marginBottom: 20, // Add some margin if needed
+  }
 });
 
 export default SignInScreen;
