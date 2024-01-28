@@ -23,9 +23,19 @@ const SignUpScreen = ({ navigation }) => {
 
         // Push user data to Firebase Realtime Database
         const userRef = ref(db, `users/${user.uid}`); // 'users' is the path in the database
+        const preferencesRef = ref(db, `users/${user.uid}/preferences`);
+        const skillsRef = ref(db, `users/${user.uid}/skills`);
         set(userRef, {
           username,
           email,
+        });
+        set(preferencesRef, {
+          // initialize default preferences here
+          theme: 'light',
+          language: 'english',
+        });
+        set(skillsRef, {
+          1: 'null',
         });
 
         navigation.navigate('Main');
