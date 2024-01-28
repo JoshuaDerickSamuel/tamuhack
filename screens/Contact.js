@@ -27,7 +27,11 @@ const Contact = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.userItem}
-      onPress={() => navigation.navigate('ExternalProfilePage', { externalUID: item.uid })}
+      onPress={() => {
+        console.log('External UID:', item.uid);
+        navigation.navigate('ExternalProfilePage', { externalUID: item.uid });
+      }
+      }
     >
       <Text style={styles.userName}>{item.username}</Text>
       <Text style={styles.userEmail}>{item.email}</Text>

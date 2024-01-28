@@ -8,7 +8,11 @@ const ExternalProfilePage = ({ route }) => {
   const [userPreferences, setUserPreferences] = useState(null);
   const [userSkills, setUserSkills] = useState(null);
 
-  const { externalUID } = route.params;
+  // Remove the following line as it's unnecessary and causing the error
+  // const { route } = props;
+
+  const externalUID = route.params?.externalUID;
+  //const externalUID = "CELm2bsqzEg0dkbfwDK7bcLI0nx1";
 
   useEffect(() => {
     const db = getDatabase();
@@ -31,7 +35,6 @@ const ExternalProfilePage = ({ route }) => {
       const skillsData = snapshot.val();
       setUserSkills(skillsData);
     });
-
   }, [externalUID]);
 
   return (
