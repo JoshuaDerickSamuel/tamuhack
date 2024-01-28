@@ -1,6 +1,5 @@
-// SignInScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Image, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, ImageBackground, Alert, Image } from 'react-native';
 import firebase from '../firebaseConfig'; // Make sure the path to your firebaseConfig is correct
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -24,57 +23,68 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../assets/logo.png')} // Path to your logo image
-        style={styles.logo}
-      />
-      <Text style={styles.header}>Login here</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        autoCapitalize="none"
-      />
-      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-        <Text style={styles.forgotPassword}>Forgot your password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-        <Text style={styles.signInButtonText}>Sign in</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-        <Text style={styles.signUpText}>Create new account</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require('../assets/login_bg.png')} // Path to your background image
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Image
+          source={require('../assets/logo.png')} // Path to your logo image
+          style={styles.logo}
+        />
+        <Text style={styles.header}>Login here</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoCapitalize="none"
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <Text style={styles.forgotPassword}>Forgot your password?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
+          <Text style={styles.signInButtonText}>Sign in</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <Text style={styles.signUpText}>Create new account</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'white', // Assuming a white background
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+  },
+  logo: {
+    width: 200, // Increase the width as needed
+    height: 200, // Increase the height as needed
+    marginBottom: 20, // Add some margin if needed
   },
   header: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  subHeader: {
-    fontSize: 16,
-    marginBottom: 30,
   },
   input: {
     width: '100%',
@@ -105,12 +115,6 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize: 16,
   },
-  logo: {
-    width: 2000, // Set the width as needed
-    height: 2000, // Set the height as needed
-    
-    marginBottom: 20, // Add some margin if needed
-  }
 });
 
 export default SignInScreen;
