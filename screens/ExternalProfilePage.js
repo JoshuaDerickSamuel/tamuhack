@@ -1,21 +1,32 @@
-// ExternalProfilePage.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { getDatabase, ref, onValue, push, set } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 const ExternalProfilePage = ({ route }) => {
   const [userData, setUserData] = useState(null);
   const [userPreferences, setUserPreferences] = useState(null);
   const [userSkills, setUserSkills] = useState(null);
-
-  // Remove the following line as it's unnecessary and causing the error
-  // const { route } = props;
+  const [isConnected, setIsConnected] = useState(false);
 
   const externalUID = route.params?.externalUID;
-  //const externalUID = "CELm2bsqzEg0dkbfwDK7bcLI0nx1";
 
   useEffect(() => {
     const db = getDatabase();
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    // Check if the current user is connected to the external user
+    const connectionsRef = ref(db, `users/${user.uid}/connections`);
+    onValue(connectionsRef, (snapshot) => {
+      const connectionsData = snapshot.val();
+      if (connectionsData) {
+        const isConnectedToUser = Object.values(connectionsData).some(
+          (connection) => connection.toUser === externalUID
+        );
+        setIsConnected(isConnectedToUser);
+      }
+    });
 
     const userRef = ref(db, `users/${externalUID}`);
     const preferencesRef = ref(db, `users/${externalUID}/preferences`);
@@ -36,6 +47,31 @@ const ExternalProfilePage = ({ route }) => {
       setUserSkills(skillsData);
     });
   }, [externalUID]);
+
+  const handleConnect = () => {
+    const db = getDatabase();
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const connectionsRef = ref(db, `users/${user.uid}/connections`);
+
+    const newConnectionRef = push(connectionsRef);
+
+    const newConnection = {
+      fromUser: user.uid,
+      toUser: externalUID,
+      timestamp: Date.now(),
+    };
+
+    set(newConnectionRef, newConnection)
+      .then(() => {
+        console.log('Connection saved successfully');
+        setIsConnected(true);
+        // You can add additional logic here if needed
+      })
+      .catch((error) => {
+        console.error('Error saving connection: ', error.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -65,6 +101,12 @@ const ExternalProfilePage = ({ route }) => {
           ))}
         </View>
       )}
+
+      {!isConnected && (
+        <TouchableOpacity style={styles.connectButton} onPress={handleConnect}>
+          <Text style={styles.connectButtonText}>Connect</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -85,6 +127,18 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     marginBottom: 10,
+  },
+  connectButton: {
+    marginTop: 20,
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+  },
+  connectButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
