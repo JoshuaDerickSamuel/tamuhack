@@ -106,8 +106,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   logo: {
-    width: 100, // Set the width as needed
-    height: 100, // Set the height as needed
+    width: 2000, // Set the width as needed
+    height: 2000, // Set the height as needed
+    
     marginBottom: 20, // Add some margin if needed
   }
 });
