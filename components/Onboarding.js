@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, FlatList, Animated } from 'react-native'
+import { StyleSheet, Text, View, FlatList, Animated, TouchableOpacity } from 'react-native'
 import React, {useState, useRef} from 'react'
 import welcomeData from '../welcomeData'
 import OnboardingItem from './OnboardingItem'
 import Paginator from './Paginator'
 import NextButton from './NextButton'
 
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
@@ -23,9 +23,13 @@ const Onboarding = () => {
 
     const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50}).current;
     
+    const handleSignIn = () => {
+    navigation.navigate('Auth');
+  };
 
 
   return ( 
+    <View style={styles.home}>
     <View style={styles.container}>
         <View style={{flex:3}}>
       <FlatList 
@@ -48,8 +52,11 @@ const Onboarding = () => {
       </View>
       <View style={styles.bottom}>
       <Paginator data={welcomeData} scrollX={scrollX}/>
-      {imgLoaded ? <NextButton/> : <></>}
+      {imgLoaded ? <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
+        <Text style={styles.signInButtonText}>Sign in</Text>
+      </TouchableOpacity> : <></>}
       </View>
+    </View>
     </View>
   )
 }
@@ -66,9 +73,27 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         height: 100,
         width: 100,
-                alignItems: 'center',
+        alignItems: 'center',
 
-    }
+    },
+    signInButton: {
+    width: '100%',
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  home:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  signInButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 
 
 })

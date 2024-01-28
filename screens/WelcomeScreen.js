@@ -6,7 +6,7 @@ import Onboarding from '../components/Onboarding';
 const WelcomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Onboarding/>
+      <Onboarding nav ={navigation}/>
     </View>
   );
 };
