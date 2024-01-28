@@ -1,6 +1,6 @@
 // ForgotPasswordScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, TouchableWithoutFeedback } from 'react-native';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 const ForgotPasswordScreen = ({ navigation }) => {
@@ -23,6 +23,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+     }}>
+
     <View style={styles.container}>
       <Text style={styles.title}>Reset Password</Text>
       <TextInput
@@ -34,6 +38,8 @@ const ForgotPasswordScreen = ({ navigation }) => {
       <Button title="Reset Password" onPress={handleResetPassword} />
       <Button title="Back to Sign In" onPress={() => navigation.goBack()} />
     </View>
+    </TouchableWithoutFeedback>
+
   );
 };
 

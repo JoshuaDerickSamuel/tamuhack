@@ -36,7 +36,7 @@ const Onboarding = ({navigation}) => {
       data = {welcomeData} 
       renderItem={({ item }) => <OnboardingItem item={item} />}
       horizontal
-      showsHorizontalScrollIndicator
+      showsHorizontalScrollIndicator = {false}
       pagingEnabled
       bounces={false}
       keyExtractor={(item) => item.id}
@@ -52,9 +52,11 @@ const Onboarding = ({navigation}) => {
       </View>
       <View style={styles.bottom}>
       <Paginator data={welcomeData} scrollX={scrollX}/>
+      <View>
       {imgLoaded ? <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-        <Text style={styles.signInButtonText}>Sign in</Text>
+        <Text style={styles.signInButtonText}>Continue</Text>
       </TouchableOpacity> : <></>}
+      </View>
       </View>
     </View>
     </View>
@@ -70,16 +72,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     bottom:{
-        backgroundColor: 'red',
         height: 100,
         width: 100,
         alignItems: 'center',
+        marginBottom: 50
 
     },
     signInButton: {
-    width: '100%',
-    backgroundColor: 'blue',
-    padding: 15,
+    width: 170,
+    padding: 10,
     borderRadius: 25,
     alignItems: 'center',
     marginBottom: 10,
@@ -90,9 +91,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   signInButtonText: {
-    color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+    alignContent: 'center',
   },
 
 

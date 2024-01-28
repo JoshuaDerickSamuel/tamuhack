@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, ImageBackground, Alert, Image } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, ImageBackground, Alert, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import firebase from '../firebaseConfig'; // Make sure the path to your firebaseConfig is correct
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -23,6 +24,10 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
+     <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+     }}>
+      <View style={{flex:1}}>
     <ImageBackground
       source={require('../assets/login_bg.png')} // Path to your background image
       style={styles.background}
@@ -60,6 +65,8 @@ const SignInScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </ImageBackground>
+    </View>
+    </TouchableWithoutFeedback>
   );
 };
 

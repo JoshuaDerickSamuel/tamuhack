@@ -1,6 +1,6 @@
 // SignUpScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Button, TouchableOpacity, StyleSheet, Text, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, push, set } from 'firebase/database';
 
@@ -48,6 +48,9 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+     }}>
     <View style={styles.container}>
       <Text style={styles.header}>Create Account</Text>
       <Text style={styles.subHeader}>Sign up to get started!</Text>
@@ -81,6 +84,7 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={styles.signInText}>Back to Sign In</Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

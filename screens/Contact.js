@@ -3,9 +3,12 @@ import { View, StyleSheet, Text } from "react-native";
 
 const Contact = () => {
   return (
+
     <View style={styles.center}>
       <Text>This is the contact screen</Text>
     </View>
+    
+
   );
 };
 

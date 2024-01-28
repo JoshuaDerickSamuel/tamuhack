@@ -1,7 +1,7 @@
 // AddSkill.js
 
 import React, { useState } from 'react';
-import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Button, Text, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, push } from 'firebase/database';
 
@@ -33,6 +33,9 @@ const AddSkill = ({ navigation }) => {
   };
 
   return (
+<TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+     }}>
     <View style={styles.container}>
       <Text style={styles.title}>Add a Skill</Text>
       <TextInput
@@ -44,6 +47,8 @@ const AddSkill = ({ navigation }) => {
       <Button title="Add Skill" onPress={handleAddSkill} />
       <Button title="Go to Home" onPress={() => navigation.navigate('Main')} />
     </View>
+        </TouchableWithoutFeedback>
+
   );
 };
 
