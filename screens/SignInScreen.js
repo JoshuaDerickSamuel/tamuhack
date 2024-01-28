@@ -1,9 +1,8 @@
 // SignInScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import firebase from '../firebaseConfig'; // Make sure the path to your firebaseConfig is correct
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,13 +26,15 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.header}>Login here</Text>
+      <Text style={styles.subHeader}>Welcome back you've been missed!</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -41,16 +42,17 @@ const SignInScreen = ({ navigation }) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        autoCapitalize="none"
       />
-      <Button title="Sign In" onPress={handleSignIn} />
-      <Button
-        title="Don't have an account? Sign Up"
-        onPress={() => navigation.navigate('SignUp')}
-      />
-      <Button
-        title="Forgot Password?"
-        onPress={() => navigation.navigate('ForgotPassword')}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+        <Text style={styles.forgotPassword}>Forgot your password?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
+        <Text style={styles.signInButtonText}>Sign in</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+        <Text style={styles.signUpText}>Create new account</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -61,17 +63,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: 'white', // Assuming a white background
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subHeader: {
+    fontSize: 16,
+    marginBottom: 30,
   },
   input: {
     width: '100%',
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 10,
+    padding: 15,
+    borderRadius: 25,
+    marginBottom: 10,
+  },
+  forgotPassword: {
+    color: 'blue',
     marginBottom: 20,
+  },
+  signInButton: {
+    width: '100%',
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  signInButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  signUpText: {
+    color: 'blue',
+    fontSize: 16,
   },
 });
 
