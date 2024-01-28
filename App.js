@@ -15,8 +15,8 @@ const App = () => {
    
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Howdy" component={Onboarding} options={{ headerShown: false }} />
-        <Stack.Screen name="Auth" component={AuthStackNavigator} options={{ headerShown: false, gestureEnabled: false }} />
+        {/* <Stack.Screen name="Howdy" component={Onboarding} options={{ headerShown: false }} />
+        <Stack.Screen name="Auth" component={AuthStackNavigator} options={{ headerShown: false, gestureEnabled: false }} /> */}
         <Stack.Screen name="Pref" component={PrefrencesStackNavigator} options={{ headerShown: false, gestureEnabled: false }} />
         <Stack.Screen name="Main" component={DrawerNavigator} options={{ headerShown: false, gestureEnabled: false }} />
       </Stack.Navigator>

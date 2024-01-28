@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, FlatList, SafeAreaView , ScrollView, TouchableOpacity, Button  } from 'react-native'
+import React, {useState} from 'react'
 
 const DATA = [
   {
@@ -16,61 +16,135 @@ const DATA = [
   },
   {
     id: '4-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
+    title: 'Fourth Item',
   },
   {
     id: '5-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
+    title: 'Fifth Item',
   },
   {
     id: '6-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
+    title: 'Sixth Item',
   },
 ]
 
 
 
-const AddPref = () => {
+
+
+const AddPref = ({ navigation }) => {
+
   return (
     <View style={styles.container}>
-        <SideScroller/>
+        <SideScroller nav = {navigation}/>
     </View>
     
   )
 }
 
 const Card = ({title}) => {
-  return (
-    <View style={styles.card}>
-      <Text>{title}</Text>
+        const [friends, setFriends] = useState(friendsArray); // Setting default value
+        const handleAddFriend = () => {
+    setFriends((prevFriends) => [
+        ...prevFriends,
+        {
+            name: {title},
+            age: 20, // Random age
+        },
+    ]);
+    console.log(friends)
+};
+
+    return(
+<   View style={styles.card}>
+      <TouchableOpacity style={styles.button} onPress={handleAddFriend}>
+        <Text>{title}</Text>
+      </TouchableOpacity>
      
     </View>
   )
 }
+    
+    
 
-const CardContainer = () => {
+const CardContainer = ({title}) => {
     return (
         <View style={styles.holder}>
-            <Card/>
-            <Card/>
-            <Card/>
+            <Card title={title.title}/>
         </View>
     )
 }
 
-const SideScroller = () => {
+const Header = () => {
     return (
-        <SafeAreaView>
-            <Text>Title</Text>  
-            <Text>Subtitle</Text>
+        <View style={styles.header}>
+            <Text style={styles.headertext}>Header</Text>
+        </View>
+    )
+}
+
+const friendsArray = [
+    {
+        name: "John",
+        age: 19,
+    },
+    {
+        name: "Candy",
+        age: 18,
+    },
+    {
+        name: "mandy",
+        age: 20,
+    },
+];
+
+const SideScroller = ({nav}) => {
+
+
+
+
+
+    return (
+        <View>
+        <Header/>
+        <SafeAreaView style={styles.content}>
+            <ScrollView style={styles.scrollView}>
+            <Text style={styles.cardTitle}>Title</Text>  
             <FlatList
                 data={DATA}
-                renderItem={({item}) => <CardContainer title={item.title} />}
+                renderItem={({item}) => <CardContainer title={item} />}
                 keyExtractor={item => item.id}
                 horizontal = {true}
                 pagingEnabled
             />
+            <Text style={styles.cardTitle}>Title</Text>  
+            <FlatList
+                data={DATA}
+                renderItem={({item}) => <CardContainer title={item} />}
+                keyExtractor={item => item.id}
+                horizontal = {true}
+                pagingEnabled
+            />
+            <Text style={styles.cardTitle}>Title</Text>  
+            <FlatList
+                data={DATA}
+                renderItem={({item}) => <CardContainer title={item} />}
+                keyExtractor={item => item.id}
+                horizontal = {true}
+                pagingEnabled
+            />
+            <Text style={styles.cardTitle}>Title</Text>  
+            <FlatList
+                data={DATA}
+                renderItem={({item}) => <CardContainer title={item} />}
+                keyExtractor={item => item.id}
+                horizontal = {true}
+                pagingEnabled
+            />
+            </ScrollView>
         </SafeAreaView>
+        <Button title="Go to Home" onPress={() => nav.navigate('Skills')} />
+        </View>
 
     )
 }
@@ -83,15 +157,30 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    flex:1
+  },
     card:{
         width: 367,
-        height: 70,
-        backgroundColor: 'red',
+        height: 200,
         margin:3,
         borderRadius: 9,
     },
     holder:{
         marginHorizontal: 10
+    },content:{
+        flex:1
+    },
+    header:{
+        height: 160,
+        backgroundColor: 'lightblue',
+
+    },
+    cardTitle:{
+        fontSize: 40
     }
 
 })
