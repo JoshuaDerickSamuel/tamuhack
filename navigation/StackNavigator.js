@@ -10,6 +10,8 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import PreferenceScreen from '../screens/AddPref'
 import SkillScreen from '../screens/AddSkill'
+import ProfileScreen from '../screens/ProfilePage'
+import ExternalProfilePage from "../screens/ExternalProfilePage";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +47,7 @@ const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Contact" component={Contact} options={{ headerShown: false }}/>
+      <Stack.Screen name="ExternalProfilePage" component={ExternalProfilePage} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };
@@ -58,4 +61,12 @@ const PrefrencesStackNavigator = () => {
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator };
+const ProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }}/>
+    </Stack.Navigator>
+  );
+};
+
+export { MainStackNavigator, ContactStackNavigator, AuthStackNavigator, PrefrencesStackNavigator, ProfileStackNavigator};

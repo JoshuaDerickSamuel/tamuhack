@@ -1,5 +1,3 @@
-// AddSkill.js
-
 import React, { useState } from 'react';
 import { View, Button, Text, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { getAuth } from 'firebase/auth';
@@ -53,11 +51,17 @@ const AddSkill = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   title: {
     fontSize: 20,
@@ -67,8 +71,23 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 10,
+    padding: 15,
+    borderRadius: 25,
     marginBottom: 20,
+    backgroundColor: 'white',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
