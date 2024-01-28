@@ -1,6 +1,6 @@
 // SignUpScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Button, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, push, set } from 'firebase/database';
 
@@ -23,9 +23,19 @@ const SignUpScreen = ({ navigation }) => {
 
         // Push user data to Firebase Realtime Database
         const userRef = ref(db, `users/${user.uid}`); // 'users' is the path in the database
+        const preferencesRef = ref(db, `users/${user.uid}/preferences`);
+        const skillsRef = ref(db, `users/${user.uid}/skills`);
         set(userRef, {
           username,
           email,
+        });
+        set(preferencesRef, {
+          // initialize default preferences here
+          theme: 'light',
+          language: 'english',
+        });
+        set(skillsRef, {
+          1: 'null',
         });
 
         navigation.navigate('Main');
@@ -39,18 +49,22 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign Up</Text>
+      <Text style={styles.header}>Create Account</Text>
+      <Text style={styles.subHeader}>Sign up to get started!</Text>
       <TextInput
         style={styles.input}
         placeholder="Username"
         value={username}
         onChangeText={setUsername}
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -58,9 +72,14 @@ const SignUpScreen = ({ navigation }) => {
         secureTextEntry
         value={password}
         onChangeText={setPassword}
+        autoCapitalize="none"
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
-      <Button title="Back to Sign In" onPress={() => navigation.goBack()} />
+      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+        <Text style={styles.signUpButtonText}>Sign Up</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.signInText}>Back to Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -71,17 +90,41 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: 'white', // Assuming a white background
   },
-  title: {
-    fontSize: 20,
-    marginBottom: 15,
+  header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subHeader: {
+    fontSize: 16,
+    marginBottom: 30,
   },
   input: {
     width: '100%',
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 10,
+    padding: 15,
+    borderRadius: 25,
     marginBottom: 10,
+  },
+  signUpButton: {
+    width: '100%',
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  signUpButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  signInText: {
+    color: 'blue',
+    fontSize: 16,
   },
 });
 
