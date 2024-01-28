@@ -32,7 +32,7 @@ const SignInScreen = ({ navigation }) => {
           source={require('../assets/logo.png')} // Path to your logo image
           style={styles.logo}
         />
-        <Text style={styles.header}>Login here</Text>
+        <Text style={styles.header}></Text>
         <TextInput
           style={styles.input}
           placeholder="Email"
