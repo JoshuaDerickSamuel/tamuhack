@@ -1,7 +1,5 @@
-// AddSkill.js
-
 import React, { useState } from 'react';
-import { View, Button, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Button, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getDatabase, ref, push } from 'firebase/database';
 
@@ -33,26 +31,36 @@ const AddSkill = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Add a Skill</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Type your skill here"
-        value={skill}
-        onChangeText={setSkill}
-      />
-      <Button title="Add Skill" onPress={handleAddSkill} />
-      <Button title="Go to Home" onPress={() => navigation.navigate('Main')} />
-    </View>
+      <View style={styles.container}>
+        <Text style={styles.title}>Add a Skill</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Type your skill here"
+          value={skill}
+          onChangeText={setSkill}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleAddSkill}>
+          <Text style={styles.buttonText}>Add Skill</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
+          <Text style={styles.buttonText}>Go to Home</Text>
+        </TouchableOpacity>
+      </View>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   title: {
     fontSize: 20,
@@ -62,8 +70,23 @@ const styles = StyleSheet.create({
     width: '100%',
     borderWidth: 1,
     borderColor: 'gray',
-    padding: 10,
+    padding: 15,
+    borderRadius: 25,
     marginBottom: 20,
+    backgroundColor: 'white',
+  },
+  button: {
+    width: '100%',
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
