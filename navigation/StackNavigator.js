@@ -11,6 +11,7 @@ import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import PreferenceScreen from '../screens/AddPref'
 import SkillScreen from '../screens/AddSkill'
 import ProfileScreen from '../screens/ProfilePage'
+import ExternalProfilePage from "../screens/ExternalProfilePage";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,8 +34,8 @@ const MainStackNavigator = () => {
 
 const AuthStackNavigator = () => {
     return (
-      <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Navigator initialRouteName="Sign In">
+        <Stack.Screen name="Sign In" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
@@ -46,6 +47,7 @@ const ContactStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Contact" component={Contact} options={{ headerShown: false }}/>
+      <Stack.Screen name="ExternalProfilePage" component={ExternalProfilePage} options={{ headerShown: false }}/>
     </Stack.Navigator>
   );
 };

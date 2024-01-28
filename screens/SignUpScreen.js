@@ -1,6 +1,6 @@
 // SignUpScreen.js
 import React, { useState } from 'react';
-import { View, TextInput, Button, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Button, TouchableOpacity, StyleSheet, Text, Alert, ImageBackground } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref, push, set } from 'firebase/database';
 
@@ -48,6 +48,10 @@ const SignUpScreen = ({ navigation }) => {
   };
 
   return (
+    <ImageBackground
+      source={require('../assets/login_bg.png')} // Path to your background image
+      style={styles.background}
+    >
     <View style={styles.container}>
       <Text style={styles.header}>Create Account</Text>
       <Text style={styles.subHeader}>Sign up to get started!</Text>
@@ -81,10 +85,16 @@ const SignUpScreen = ({ navigation }) => {
         <Text style={styles.signInText}>Back to Sign In</Text>
       </TouchableOpacity>
     </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',

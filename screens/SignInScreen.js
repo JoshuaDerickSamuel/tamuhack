@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 200, // Increase the width as needed
     height: 200, // Increase the height as needed
-    marginBottom: 20, // Add some margin if needed
+    marginBottom: 100, // Add some margin if needed
   },
   header: {
     fontSize: 28,
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   signUpText: {
     color: 'blue',
     fontSize: 16,
+    marginBottom:100,
   },
 });
 
